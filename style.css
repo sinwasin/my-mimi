@@ -1,0 +1,158 @@
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:root { --bg: #fff; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;              /* รองรับแถบ Safari บน iPhone */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  font-family: "Segoe UI", "Noto Sans Thai", sans-serif;
+  background: var(--bg);
+}
+
+/* ---------- หน้าแรก ---------- */
+.card {
+  width: 100%;
+  max-width: 560px;
+  text-align: center;              /* จัดทุกอย่างกลาง */
+}
+
+h1 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(2rem, 9vw, 3rem);     /* ปรับขนาดตามหน้าจอ */
+  line-height: 1.15;
+  color: #5c5348;
+  margin: 0 0 14px;
+}
+
+.subtitle {
+  font-family: "Sarabun", "Noto Sans Thai", sans-serif;
+  font-size: clamp(0.95rem, 4vw, 1.1rem);
+  color: #6b6258;
+  margin: 0 0 24px;
+}
+
+.gif-wrap {
+  margin: 0 auto;                  /* GIF อยู่ตรงกลาง */
+  width: min(75vw, 300px);         /* ปรับขนาดตามหน้าจอ */
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 28px;
+}
+
+.btn {
+  border: none;
+  color: #fff;
+  font-size: 1.1rem;
+  min-width: 72px;
+  min-height: 48px;                /* ขนาดกดง่ายบนมือถือ */
+  padding: 12px 22px;
+  border-radius: 12px;
+  cursor: pointer;
+  touch-action: manipulation;      /* กันซูมเวลาแตะรัว ๆ */
+}
+
+.yes { background: green; }
+.no  {
+  background: red;
+  transition: transform 0.3s ease;
+}
+
+/* กด No: เลื่อนไปทางขวา (ระยะพอดีกับจอ iPhone) */
+.no.moved { transform: translateX(70px); }
+
+/* ---------- หน้าตอบรับ ---------- */
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  padding: 16px;
+  overflow-y: auto;
+}
+.overlay.show { display: flex; }
+
+.modal {
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+  padding: 24px 16px;
+  background: transparent;
+  animation: pop 0.4s ease;
+}
+
+.result-img {
+  display: block;
+  margin: 0 auto;
+  width: min(75vw, 280px);
+  height: auto;
+  border-radius: 8px;
+}
+
+.heart { font-size: 2.5rem; margin: 16px 0 4px; }
+
+.modal h2 {
+  margin: 0;
+  font-size: clamp(1.1rem, 5.5vw, 1.4rem);
+  color: #a8384f;
+}
+
+.modal p {
+  margin: 8px 0 24px;
+  color: #444;
+}
+
+.close-btn {
+  background: #222;
+  color: #fff;
+  border: none;
+  min-height: 46px;
+  padding: 10px 28px;
+  border-radius: 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+@keyframes pop {
+  from { transform: scale(0.85); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+
+/* ---------- หัวใจลอย ---------- */
+.hearts {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;            /* ไม่บังการกดปุ่มปิด */
+}
+
+.heart-float {
+  position: absolute;
+  bottom: -50px;
+  animation-name: floatUp;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes floatUp {
+  0%   { transform: translate(0, 0) scale(0.6); opacity: 0; }
+  15%  { opacity: 1; }
+  100% { transform: translate(var(--sway), -110vh) scale(1.1); opacity: 0; }
+}
